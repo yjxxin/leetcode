@@ -4,7 +4,7 @@ leetcode
 ### 使用方法
 **1. 克隆仓库**
 
-点击右上角Fork按钮。
+> git clone https://github.com/weizhixiaoyi/leetcode.git
 
 **2. 创建个人文件夹**
 
