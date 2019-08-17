@@ -33,34 +33,41 @@ struct ListNode{
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode *l3 = new ListNode(0);
-        ListNode *r3 = l3;
-
-        int l1_val = 0;
+        // get l1 value
+        string l1_val = "0";
         int l1_digits = 0;
         ListNode *r1 = l1;
         while(r1 != NULL){
-            l1_val += r1->val * ;
+            l1_val += r1->val * pow(10, l1_digits);
             l1_digits += 1;
             r1 = r1->next;
-            cout << l1_digits << endl;
-            cout << l1_val << endl;
-            cout << endl;
         }
-
-        int l2_val = 0;
+        // get l2 value
+        long l2_val = 0;
         int l2_digits = 0;
         ListNode *r2 = l2;
         while(r2 != NULL){
-            l2_val += 10 * l2_digits;
+            l2_val += r2->val * pow(10, l2_digits);
             l2_digits += 1;
             r2 = r2->next;
         }
 
-        cout << l1_val << endl;
+//        cout << l1_val << endl;
 //        cout << l2_val << endl;
-        return l3;
 
+        // get l3 ListNode
+        long long l3_value = l1_val + l2_val;
+        ListNode *l3 = new ListNode(l3_value % 10);
+        ListNode *r3 = l3;
+
+        l3_value = l3_value / 10;
+        while(l3_value != 0){
+            int current_value = l3_value % 10;
+            l3_value = l3_value / 10;
+            l3->next = new ListNode(current_value);
+            l3 = l3->next;
+        }
+        return r3;
     }
 };
 
@@ -93,6 +100,7 @@ int main(){
     Solution solution;
     ListNode* result;
     result = solution.addTwoNumbers(r1, r2);
+    print_list(result);
 }
 
 
