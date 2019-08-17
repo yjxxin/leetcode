@@ -13,7 +13,7 @@ leetcode
 
 进入problems/目录，找到相应问题的文件夹，比如001.two-sum/文件夹。进入文件夹内，创建代码文件，命名方式类似于001.two-sum-zhenhai.cpp，推荐使用c++。如果没有找到题目文件夹，则进行创建，命名方式为id.problem_title，比如001.two-sum/。
 
-**4. 更新至GitHub **
+**4. 更新至GitHub**
 
 提交之前，先将远程代码更新至本地仓库。
 > git pull
