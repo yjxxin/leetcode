@@ -3,10 +3,8 @@ leetcode
 
 ### 使用方法
 **1. 克隆仓库**
+> git clone https://github.com/weizhixiaoyi/leetcode.git
 
-```git
-git clone https://github.com/weizhixiaoyi/leetcode.git
-```
 **2. 创建个人文件夹**
 
 进入users/目录，创建个人文件夹，例如zhenhai/。进入个人文件夹下，创建README.md文件，用于记录个人已解决的问题。
@@ -18,13 +16,11 @@ git clone https://github.com/weizhixiaoyi/leetcode.git
 **4. 更新至GitHub **
 
 提交之前，先将远程代码更新至本地仓库。
-
-```
-git pull
-```
+> git pull
 
 提交本地代码至远程仓库。
-
-```
-git push
-```
+>git add .
+>
+>git commit -m "update something"
+>
+>git push
