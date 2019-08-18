@@ -1,6 +1,4 @@
 #include <iostream>
-#include <algorithm>
-#include <math.h>
 using namespace std;
 
 // QUESTION
@@ -15,13 +13,9 @@ Output: 7 -> 0 -> 8
 Explanation: 342 + 465 = 807.
  */
 
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
+// Tips
+/*
+ * 数值太大，不能利用数字进行直接相加。可利用字符串进行表示，或边读取边进行加法运算，注意进位表示。
  */
 
 struct ListNode{
@@ -33,70 +27,67 @@ struct ListNode{
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        // get l1 value
-        string l1_val = "0";
-        int l1_digits = 0;
-        ListNode *r1 = l1;
-        while(r1 != NULL){
-            l1_val += r1->val * pow(10, l1_digits);
-            l1_digits += 1;
-            r1 = r1->next;
-        }
-        // get l2 value
-        long l2_val = 0;
-        int l2_digits = 0;
-        ListNode *r2 = l2;
-        while(r2 != NULL){
-            l2_val += r2->val * pow(10, l2_digits);
-            l2_digits += 1;
-            r2 = r2->next;
-        }
+        int l1_current_value = 0, l2_current_value = 0, carry = 0;
+        ListNode *l3 = new ListNode(0);
+        ListNode *res = l3;
 
-//        cout << l1_val << endl;
-//        cout << l2_val << endl;
+        while(l1 != NULL || l2 != NULL){
+            l1_current_value = getCurrentIntegerValue(l1);
+            l2_current_value = getCurrentIntegerValue(l2);
 
-        // get l3 ListNode
-        long long l3_value = l1_val + l2_val;
-        ListNode *l3 = new ListNode(l3_value % 10);
-        ListNode *r3 = l3;
-
-        l3_value = l3_value / 10;
-        while(l3_value != 0){
-            int current_value = l3_value % 10;
-            l3_value = l3_value / 10;
-            l3->next = new ListNode(current_value);
+            int current_sum = l1_current_value + l2_current_value;
+            if (carry != 0){
+                current_sum = current_sum + carry;
+                carry = 0;
+            }
+            if (current_sum > 9){
+                carry = (current_sum / 10) % 10;
+                current_sum = current_sum % 10;
+            }
+            l3->next = new ListNode(current_sum);
             l3 = l3->next;
         }
-        return r3;
+        if(carry != 0){
+            l3->next = new ListNode(carry);
+            l3 = l3->next;
+        }
+        return res->next;
+    }
+private:
+    int getCurrentIntegerValue(ListNode* &l){
+        int value = 0;
+        if(l != NULL){
+            value = l->val;
+            l = l->next;
+        }
+        return value;
     }
 };
 
 void print_list(ListNode* p){
     while(p != NULL){
-        cout << p->val << ' ';
+        cout << p->val << "->";
         p = p->next;
     }
     cout << endl;
 }
 
 int main(){
-    // input data
-    ListNode *l1 = new ListNode(2);
+    // input l1 data
+    ListNode *l1 = new ListNode(1);
     ListNode *r1 = l1;
-    l1->next = new ListNode(4);
+    l1->next = new ListNode(2);
     l1 = l1->next;
     l1->next = new ListNode(3);
     l1 = l1->next;
-
-    ListNode *l2 = new ListNode(5);
+    // input l3 data
+    ListNode *l2 = new ListNode(1);
     ListNode *r2 = l2;
-    l2->next = new ListNode(6);
+    l2->next = new ListNode(2);
     l2 = l2->next;
-    l2->next = new ListNode(4);
+    l2->next = new ListNode(3);
     l2 = l2->next;
-
-//    print_list(r1);
-
+    // get result
     Solution solution;
     ListNode* result;
     result = solution.addTwoNumbers(r1, r2);
